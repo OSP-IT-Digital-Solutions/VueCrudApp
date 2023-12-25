@@ -100,11 +100,8 @@ var app = new Vue({
             contact[key] = value;
         });
 
-        axios({
-            method: 'post',
-            url: 'api/contacts.php',
-            data: formData,
-            config: { headers: {'Content-Type': 'multipart/form-data' }}
+        axios.post('api/contacts.php', contact, {
+            headers: {'Content-Type': 'multipart/form-data'}
         })
         .then(function (response) {
             //handle success
@@ -117,7 +114,6 @@ var app = new Vue({
             console.log(response)
         });
     },
-
 
     resetForm: function(){
         this.name = '';
