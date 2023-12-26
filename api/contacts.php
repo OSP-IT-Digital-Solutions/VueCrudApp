@@ -28,23 +28,24 @@ switch ($method) {
       $country = $_POST["country"];
       $city = $_POST["city"];
       $job = $_POST["job"];
-
+      
       $sql = "insert into contacts (name, email, city, country, job) values ('$name', '$email', '$city', '$country', '$job')"; 
       break;
 }
 
 // run SQL statement
 $result = mysqli_query($con,$sql);
-
+ 
 // die if SQL statement failed
 if (!$result) {
   http_response_code(404);
   die(mysqli_error($con));
 }
 
+// print results, insert id or affected row count
 if ($method == 'GET') {
     if (!$id) echo '[';
-    for ($i=0 ; $i< mysqli_num_rows($result) ; $i++) {
+    for ($i=0 ; $i<mysqli_num_rows($result) ; $i++) {
       echo ($i>0?',':'').json_encode(mysqli_fetch_object($result));
     }
     if (!$id) echo ']';
